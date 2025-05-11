@@ -130,9 +130,10 @@ void iniziopartita (int contatore, bool &GameOver ,int &primoGiocatore, char Tri
 
 
 int main(){
-
+    
     segno_X='X';
     segno_O='O';
+    //I CONTATORI LI UTILIZZIAMO PER CONTARE LE VITTORIE E LE PARTITE DA GIOCARE
     Contatore=0;
     ContaX=0;
     ContaO=0;
@@ -140,24 +141,24 @@ int main(){
     cin>>Giocatore1;
     cout<<"Giocatore 2 inserisci il tuo nome :";
     cin>>Giocatore2;
-
+    //FACCIAMO SCEGLIERE A CASO CHI INIZIA A GIOCARE
     srand(time(0));
     primoGiocatore =rand() % 2;
-
-    while(Contatore<6 ){
-        // Reinizializza l'array Tris all'inizio di ogni partita
+    //LA PARTITA E' AL MEGLIO DI 3/5
+    while(Contatore<5){
+        // PULISCE IL CAMPO DA GIOCO AD OGNI PARTITA
         char Tris[]={' ',' ',' ',' ',' ',' ',' ',' ',' '};
-        Campo_di_Gioco(Tris);
+        Campo_di_Gioco(Tris);//CHIAMO LA FUNZIONE CAMPO DI GIOCO CHE MOSTRA AI GIOCATORI LA GRIGLIA DEL TRIS
 
-        if (ContaX==3){
+        if (ContaX==3){//L'IF CONTA LE PARTITE VINTE ARRIVATE A TRE SI VINCE LO SCONTRO
         cout<< "hai vinto giocatore numero 1 "<<Giocatore1 << endl;
-        break; // Esci dal ciclo delle partite se un giocatore ha vinto 3 volte
+        break; //ESCE DAL  CICLO QUANDO IL GIOCATORE HA VINTO 3 VOLTE
         }
         if (ContaO==3){
         cout<< "hai vinto giocatore numero 2 "<<Giocatore2 << endl;
-        break; // Esci dal ciclo delle partite se un giocatore ha vinto 3 volte
+        break;  //ESCE DAL  CICLO QUANDO IL GIOCATORE HA VINTO 3 VOLTE
         }
-        iniziopartita (Contatore ,GameOver,primoGiocatore, Tris); // Passa Tris
+        iniziopartita (Contatore ,GameOver,primoGiocatore, Tris); //CHIAMO LA FUNZIONE CHE CI PERMETTE DI INIZIARE UNA PARTITA
 
     }
 
