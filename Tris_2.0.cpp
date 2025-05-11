@@ -6,11 +6,12 @@ using namespace std;
 
 
 bool GameOver=false;
+bool controllo;
 int Contatore,ContaX,ContaO,numero,primoGiocatore;
 char segno_X,segno_O,Risultato;
-bool controllo;
 string Giocatore1,Giocatore2;
 char Tris[]={' ',' ',' ',' ',' ',' ',' ',' ',' '};
+
 
 // ABBIAMO CREATO QUESTA FUNZIONE PER CREARE LA GRIGLIA DI GIOCO
 void Campo_di_Gioco(const char Tris[])  {  //PASSO UN ARRAY CON VALORI COSTANTI IN QUANTO NON DEVE ESSERE MODIFICATO
@@ -37,6 +38,10 @@ bool VerificaCampo(int numero,char Tris[]){
 ALL'INTERNO CHIAMIAMO LA FUNZIONE VERIFICA CAMPO CHE CI PERMETTE DI VERIFICARE SE LA POSIZIONE SCELTA DAL GIOCATORE 
 ERA GIA STATA SCELTA IN PRECEDENZA*/
 bool Gioca(int numero,char Tris[],char segno){
+    if(numero>8){
+        cout<<"il numero inserito e' superiore non rispetta le dimensioni della griglia "<<endl;
+        return false;
+    }
    if (VerificaCampo(numero,Tris)){
     Tris[numero]=segno;
         return true;
@@ -88,10 +93,10 @@ void iniziopartita (int contatore, bool &GameOver ,int &primoGiocatore, char Tri
     while(!GameOver){
 
         if (primoGiocatore ==0) {
-            cout <<"E' IL TURNO DI "<< Giocatore1 <<" GIOCATORE DELLE X E INSERISCI UN NUMERO DA (0 A 8): ";
+            cout <<"E' IL TURNO DI "<< Giocatore1 <<" GIOCATORE DELLE 'X' E INSERISCI UN NUMERO DA (0 A 8): ";
             cin>>numero;
             while (!Gioca(numero,Tris,segno_X)){
-              cout <<"E' IL TURNO DI "<< Giocatore1 <<" GIOCATORE DELLE X E INSERISCI UN NUMERO DA (0 A 8): ";
+              cout <<"E' IL TURNO DI "<< Giocatore1 <<" GIOCATORE DELLE 'X' E INSERISCI UN NUMERO DA (0 A 8): ";
             cin>>numero;
             };
 
@@ -99,7 +104,7 @@ void iniziopartita (int contatore, bool &GameOver ,int &primoGiocatore, char Tri
             if(Risultato== 'X'){
               Contatore+=1;
               ContaX +=1;
-              cout<<"il giocatore "<< Giocatore1 <<" delle X ha vinto!"<<endl;
+              cout<<"il giocatore "<< Giocatore1 <<" delle 'X' ha vinto questa partita!"<<endl;
               GameOver=true;
             }if(Risultato=='P'){
               cout<<"LA PARTITA E' FINITA IN PAREGGIO!"<<endl; //LA PARTITA PAREGGIATA NON LA CONTIAMO
@@ -108,17 +113,17 @@ void iniziopartita (int contatore, bool &GameOver ,int &primoGiocatore, char Tri
             Campo_di_Gioco(Tris);
             primoGiocatore=1; //CI PERMETTE DI ALTERNARE I GIOCATORI
         } else {
-            cout <<"E' IL TURNO DI "<< Giocatore2 <<" GIOCATORE DELLE O E INSERSCI UN NUMERO DA (0 A 8): ";
+            cout <<"E' IL TURNO DI "<< Giocatore2 <<" GIOCATORE DELLE 'O' E INSERSCI UN NUMERO DA (0 A 8): ";
             cin>>numero;
             while (!Gioca(numero,Tris,segno_O)){
-              cout <<"E' IL TURNO DI "<< Giocatore2 <<" GIOCATORE DELLE O E INSERSCI UN NUMERO DA (0 A 8): ";
+              cout <<"E' IL TURNO DI "<< Giocatore2 <<" GIOCATORE DELLE 'O' E INSERSCI UN NUMERO DA (0 A 8): ";
             cin>>numero;
             };
             Risultato=VerificaVittoria(Tris); //SERVE PER VERIFICARE SE CE UN VINCITORE
             if(Risultato== 'O'){
               Contatore+=1;
               ContaO +=1;
-              cout<<"il giocatore "<< Giocatore2 <<" delle O ha vinto!"<<endl;
+              cout<<"il giocatore "<< Giocatore2 <<" delle 'O' ha vinto questa partita!"<<endl;
               GameOver=true;
             }if(Risultato=='P'){
               cout<<"LA PARTITA E' FINITA IN PAREGGIO!"<<endl; //LA PARTITA PAREGGIATA NON LA CONTIAMO
@@ -157,15 +162,17 @@ int main(){
         Campo_di_Gioco(Tris);   //CHIAMO LA FUNZIONE CAMPO DI GIOCO CHE MOSTRA AI GIOCATORI LA GRIGLIA DEL TRIS
 
         if (ContaX==3){  //L'IF CONTA LE PARTITE VINTE ARRIVATE A TRE SI VINCE LO SCONTRO
-        cout<< "hai vinto giocatore numero 1 "<<Giocatore1 << endl;
+        cout<< "hai vinto giocatore "<<Giocatore1;
+        cout<<" la partita e' finita "<<ContaX<<" a "<<ContaO<<endl;
         break;   //ESCE DAL  CICLO QUANDO IL GIOCATORE HA VINTO 3 VOLTE
         }
         if (ContaO==3){
-        cout<< "hai vinto giocatore numero 2 "<<Giocatore2 << endl;
+        cout<< "hai vinto giocatore "<<Giocatore2;
+        cout<<" la partita e' finita "<<ContaO<<" a "<<ContaX<<endl;
         break;  //ESCE DAL  CICLO QUANDO IL GIOCATORE HA VINTO 3 VOLTE
         }
         iniziopartita (Contatore,GameOver,primoGiocatore,Tris); //CHIAMO LA FUNZIONE CHE CI PERMETTE DI INIZIARE UNA PARTITA
-
+        
     }
 
     system("PAUSE");
